@@ -1,5 +1,0 @@
-sceneSetups:
-- path: Assets/Garras_e_Penas.unity
-  isLoaded: 1
-  isActive: 1
-  isSubScene: 0
