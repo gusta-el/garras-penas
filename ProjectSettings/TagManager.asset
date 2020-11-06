@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - prince_player
+  - tronco
+  - arvore
   layers:
   - Default
   - TransparentFX
@@ -41,4 +43,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: arvores
+    uniqueID: 851485095
     locked: 0
