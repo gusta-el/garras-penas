@@ -56,7 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\Cutscene\Introduction.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\scripts\Hud\DialogueBox.cs" />
+=======
+>>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\scripts\Cutscene\Lettering.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
@@ -100,6 +103,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\scripts\Tutorial\tronco.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Assets\scripts\Hud\DialogueBox.cs" />
+    <Compile Include="Assets\scripts\Hud\DialogueReveal.cs" />
+>>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
