@@ -6,7 +6,6 @@ using UnityEngine;
 [System.Serializable]
 public class Speed
 {
-    public float dead;
     public float run;
     public float walk;
 }
@@ -14,17 +13,10 @@ public class Speed
 #region Prince Class
 public class Prince
 {
-<<<<<<< HEAD
     private bool _isHuman;
     private bool _isMoving;
     private bool _isAttacking;
     private bool _isDead;
-=======
-    private bool dead;
-    public float _speed;
-    private int _lookAt = 2;
-    public Speed speed;
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
 
     public Prince(bool isHuman, bool isMoving, bool isAttacking, bool isDead)
     {
@@ -63,7 +55,6 @@ public class PlayerMotor : MonoBehaviour
 
     #region TAGs
     private string TAG_ARVORE = "arvore";
-<<<<<<< HEAD
     private string TAG_river = "river";
     #endregion Variables
 
@@ -75,42 +66,26 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField]
     private AudioSource attacking;
     #endregion
-=======
-
-    public Transform riverTransform;
-    private string TAG_river = "river";
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
 
     private float spawn1_x;
     private float spawn1_y;
     private float spawn2_x;
     private float spawn2_y;
 
-<<<<<<< HEAD
     void Start()
     {
         prince = new Prince(true, false, false, false);
-=======
-    // Start is called before the first frame update
-    void Start()
-    {
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
         playerSprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         polygon = GetComponent<PolygonCollider2D>();
         arvoreTransform = GameObject.FindGameObjectWithTag(TAG_ARVORE).transform;
-<<<<<<< HEAD
         riverTransform = GameObject.FindGameObjectWithTag(TAG_river).transform;    
-=======
-        riverTransform = GameObject.FindGameObjectWithTag(TAG_river).transform;
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
     }
 
     void Update()
     {
         UpdatePrinceActions();
         Move();
-<<<<<<< HEAD
         Attack();
     }
 
@@ -135,37 +110,13 @@ public class PlayerMotor : MonoBehaviour
     }
 
     void Move()
-=======
-    }
-
-    void LateUpdate()
-    {
-        spawn1_x = riverTransform.position.x;
-        spawn1_x = riverTransform.position.y;
-        spawn2_x = riverTransform.position.x;
-        spawn2_x = riverTransform.position.y;
-
-        Vector3 riverPosition = riverTransform.position;
-    }
-        void Move()
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
     {
         //pega os inputs de horizontal e vertical predefinidos pela unity retornando um valor positivo ou negativo
         float _movX = Input.GetAxisRaw("Horizontal");
         float _movY = Input.GetAxisRaw("Vertical");
-<<<<<<< HEAD
         
         _speed = prince.IsHuman ? speed.walk : speed.run;
     
-=======
-
-        //altera a velocidade do jogador caso ele esteja precionando o shift esquerdo
-        if (dead == false)
-        {
-            _speed = Input.GetKey(KeyCode.LeftShift) ? speed.run : speed.walk;
-        }
-
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
         Vector3 velocity = new Vector3(_movX, _movY, 0) * Time.deltaTime * _speed;
 
         //seta a ação do jogador como andando caso uma tecla de movimentação esteja sendo precionada
@@ -191,7 +142,6 @@ public class PlayerMotor : MonoBehaviour
 
     }
 
-<<<<<<< HEAD
     void Attack()
     {
         if (prince.IsHuman && prince.IsAttacking)
@@ -222,16 +172,6 @@ public class PlayerMotor : MonoBehaviour
             flying.Stop();
 
         }
-=======
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.CompareTag("river"))
-        {
-            playerSprite.enabled = false;
-            _speed = speed.walk;
-            dead = true;
-        }    
->>>>>>> 6add33697a5f24d7f9041a3f83a6c0288329648b
     }
 
     void OnTriggerEnter2D(Collider2D col)
