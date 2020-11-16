@@ -55,11 +55,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: KGMissSpeechyIPA SDF
+  m_Name: KGMissSpeechyIPA SDF 1
   m_EditorClassIdentifier: 
-  hashCode: -729726288
+  hashCode: -102978911
   material: {fileID: 6726877032009763159}
-  materialHashCode: 308419216
+  materialHashCode: -1354359327
   m_Version: 1.1.0
   m_SourceFontFileGUID: f6d14741b9332a440a43a929179b27de
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: f6d14741b9332a440a43a929179b27de, type: 3}
@@ -2569,9 +2569,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Ambient: 0.5
-    - _Bevel: 0.5
+    - _Bevel: 0.459
     - _BevelClamp: 0
-    - _BevelOffset: 0
+    - _BevelOffset: 0.5
     - _BevelRoundness: 0
     - _BevelWidth: 0
     - _BumpFace: 0
@@ -2623,11 +2623,11 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
+    - _GlowColor: {r: 0, g: 0, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 0.11792451, b: 0.11792451, a: 1}
+    - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecularColor: {r: 0.735849, g: 0.47552508, b: 0.47552508, a: 0}
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []

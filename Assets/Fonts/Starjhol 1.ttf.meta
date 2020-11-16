@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 51b8e261d87b7cb45a32f15291600c24
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Star Jedi Hollow
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0890f7db5caea7f49a9c526bae616f43, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
