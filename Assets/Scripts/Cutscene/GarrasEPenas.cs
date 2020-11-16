@@ -1,11 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GarrasEPenas : MonoBehaviour
 {
 
     private RectTransform rectTransform;
+    [SerializeField]
+    private AudioSource audioData;
+    [SerializeField]
+    private int timer;
+    [SerializeField]
+    private string sceneTutorial;
+
+
+    [SerializeField]
+    private Canvas canvasIntroduction;
 
     void Start()
     {
@@ -19,8 +30,8 @@ public class GarrasEPenas : MonoBehaviour
         Quaternion rotation = rectTransform.rotation;
 
 
-        pos.x = pos.x * 0.9995f;
-        pos.y = pos.y * 0.9995f;
+        pos.x = pos.x * 0.995f;
+        pos.y = pos.y * 0.995f;
         
 
         if(pos.y <= 0.35 && rotation.x <= 0.58)
@@ -31,5 +42,29 @@ public class GarrasEPenas : MonoBehaviour
 
         rectTransform.localScale = pos;
 
+
+        if (timer <= 400)
+        {
+            timer--;
+        }
+
+        if (timer <= 0)
+        {
+            audioData.Play(0);
+            Destroy(canvasIntroduction);
+            timer = 1500;
+        }
+
+        if(audioData.time > 87)
+            audioData.volume = audioData.volume * 0.99f;
+
+        if (audioData.time >= 90) { 
+            SceneManager.LoadScene(sceneTutorial);
+            Destroy(this);
+        }
+
+        Debug.Log(audioData.time);
+
     }
+
 }

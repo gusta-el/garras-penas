@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d530a59deefbedf46be61cadc43c2955
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - KG Miss Speechy IPA
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f6d14741b9332a440a43a929179b27de, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
