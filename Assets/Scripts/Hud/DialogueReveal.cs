@@ -84,7 +84,7 @@ public class DialogueReveal : MonoBehaviour
 
         Vector3 finalPos = dialogBox.transform.position;
         finalPos.x = player.transform.position.x;
-        finalPos.y = player.transform.position.y - 2.5f;
+        finalPos.y = player.transform.position.y - 3.4f;
         dialogBox.transform.position = finalPos;
 
     }
