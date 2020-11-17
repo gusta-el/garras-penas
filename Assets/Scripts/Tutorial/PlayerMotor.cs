@@ -17,19 +17,22 @@ public class Prince
     private bool _isMoving;
     private bool _isAttacking;
     private bool _isDead;
+    private int _dialogSequence;
 
-    public Prince(bool isHuman, bool isMoving, bool isAttacking, bool isDead)
+    public Prince(bool isHuman, bool isMoving, bool isAttacking, bool isDead, int dialogSequence)
     {
         _isHuman = isHuman;
         _isMoving = isMoving;
         _isAttacking = isAttacking;
         _isDead = isDead;
+        _dialogSequence = dialogSequence;
     }
 
     public bool IsHuman { get => _isHuman; set => _isHuman = value; }
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
     public bool IsDead { get => _isDead; set => _isDead = value; }
+    public int DialogSequence { get => _dialogSequence; set => _dialogSequence = value; }
 
 }
 #endregion
@@ -39,12 +42,15 @@ public class Prince
 public class PlayerMotor : MonoBehaviour
 {
     #region Instances
-    private Prince prince;
+    public Prince prince;
     private SpriteRenderer playerSprite;
     private Animator animator;
     private PolygonCollider2D polygon;
     private Transform arvoreTransform;
     public Transform riverTransform;
+    [SerializeField]
+    private DialogueManager dialogueManager;
+
     #endregion
 
     #region Variables
@@ -74,7 +80,7 @@ public class PlayerMotor : MonoBehaviour
 
     void Start()
     {
-        prince = new Prince(true, false, false, false);
+        prince = new Prince(true, false, false, false, 0);
         playerSprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         polygon = GetComponent<PolygonCollider2D>();
@@ -182,6 +188,22 @@ public class PlayerMotor : MonoBehaviour
             _speed = speed.walk;
             prince.IsDead = true;
         }
+
+        if (!dialogueManager.IsActive)
+        {
+            if (col.CompareTag("dialog_fight_box") && !dialogueManager.IsActive)
+            {
+                Debug.Log("PASSEI");
+                dialogueManager.StartDialog(prince.DialogSequence);
+                prince.DialogSequence++;
+            }
+
+
+        }
+
+
+
+
     }
 
 }

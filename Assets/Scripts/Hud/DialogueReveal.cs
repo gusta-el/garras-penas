@@ -16,6 +16,10 @@ public class DialogueReveal : MonoBehaviour
     [SerializeField]
     private GameObject dialogBox;
 
+    [SerializeField]
+    private DialogueManager dialogManager;
+
+
     private int countSpaceTyped = 0;
     private bool textActive = true;
 
@@ -54,7 +58,9 @@ public class DialogueReveal : MonoBehaviour
                 StartCoroutine(Type());
             } else
             {
-                Destroy(this);
+                dialogManager.ResetDialog();
+                dialogBox.SetActive(false);
+
             }
 
         }
@@ -84,7 +90,7 @@ public class DialogueReveal : MonoBehaviour
 
         Vector3 finalPos = dialogBox.transform.position;
         finalPos.x = player.transform.position.x;
-        finalPos.y = player.transform.position.y - 3.4f;
+        finalPos.y = player.transform.position.y - 3.7f;
         dialogBox.transform.position = finalPos;
 
     }

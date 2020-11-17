@@ -8,6 +8,8 @@ TagManager:
   - tronco
   - arvore
   - river
+  - dialog_fight
+  - dialog_fight_box
   layers:
   - Default
   - TransparentFX
