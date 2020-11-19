@@ -57,11 +57,14 @@ public class PlayerMotor : MonoBehaviour
     public float _speed;
     private int _lookAt = 2;
     public Speed speed;
+    private Vector3 princePosition;
+    private Vector3 riverPosition;
+
     #endregion
 
     #region TAGs
-    private string TAG_ARVORE = "arvore";
-    private string TAG_river = "river";
+    private readonly string TAG_ARVORE = "arvore";
+    private readonly string TAG_RIVER = "river";
     #endregion Variables
 
     #region AudioSources
@@ -73,36 +76,33 @@ public class PlayerMotor : MonoBehaviour
     private AudioSource attacking;
     #endregion
 
-    private float spawn1_x;
-    private float spawn1_y;
-    private float spawn2_x;
-    private float spawn2_y;
+    private float spawn;
 
     void Start()
     {
         prince = new Prince(true, false, false, false, 0);
+        princePosition = transform.position;
         playerSprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         polygon = GetComponent<PolygonCollider2D>();
         arvoreTransform = GameObject.FindGameObjectWithTag(TAG_ARVORE).transform;
-        riverTransform = GameObject.FindGameObjectWithTag(TAG_river).transform;    
+        riverTransform = GameObject.FindGameObjectWithTag(TAG_RIVER).transform;
+        riverPosition = riverTransform.position;
     }
 
     void Update()
     {
         UpdatePrinceActions();
-        Move();
+        if (!prince.IsDead)
+        {
+            Move();
+        }       
         Attack();
     }
 
     void LateUpdate()
     {
-        spawn1_x = riverTransform.position.x;
-        spawn1_x = riverTransform.position.y;
-        spawn2_x = riverTransform.position.x;
-        spawn2_x = riverTransform.position.y;
 
-        Vector3 riverPosition = riverTransform.position;
     }
 
     private void UpdatePrinceActions()
@@ -112,6 +112,11 @@ public class PlayerMotor : MonoBehaviour
             prince.IsMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
             prince.IsHuman = !Input.GetKey(KeyCode.LeftShift);
             prince.IsAttacking = Input.GetKey(KeyCode.Z);
+        }
+        else
+        {
+            walk.Stop();
+            flying.Stop();
         }
     }
 
@@ -142,7 +147,8 @@ public class PlayerMotor : MonoBehaviour
 
         animator.SetInteger("lookAt", _lookAt);
 
-        transform.position += velocity;
+
+        princePosition += velocity;
 
         PlayMoveSounds(_movX, _movY);
 
@@ -182,11 +188,18 @@ public class PlayerMotor : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("river"))
+        if (col.CompareTag("river") && prince.IsHuman)
         {
             playerSprite.enabled = false;
-            _speed = speed.walk;
             prince.IsDead = true;
+            if (princePosition.x < riverPosition.x)
+            {
+                spawn = princePosition.x - 20;
+            }
+            else 
+            {
+                spawn = princePosition.x + 20;
+            }
         }
 
         if (!dialogueManager.IsActive)
