@@ -17,21 +17,24 @@ public class Prince
     private bool _isMoving;
     private bool _isAttacking;
     private bool _isDead;
+    private bool _isTalking;
     private int _dialogSequence;
 
-    public Prince(bool isHuman, bool isMoving, bool isAttacking, bool isDead, int dialogSequence)
+    public Prince(bool isHuman, bool isMoving, bool isAttacking, bool isDead, bool isTalking, int dialogSequence)
     {
         _isHuman = isHuman;
         _isMoving = isMoving;
         _isAttacking = isAttacking;
         _isDead = isDead;
         _dialogSequence = dialogSequence;
+        _isTalking = isTalking;
     }
 
     public bool IsHuman { get => _isHuman; set => _isHuman = value; }
     public bool IsMoving { get => _isMoving; set => _isMoving = value; }
     public bool IsAttacking { get => _isAttacking; set => _isAttacking = value; }
     public bool IsDead { get => _isDead; set => _isDead = value; }
+    public bool IsTalking { get => _isTalking; set => _isTalking = value; }
     public int DialogSequence { get => _dialogSequence; set => _dialogSequence = value; }
 
 }
@@ -50,22 +53,23 @@ public class PlayerMotor : MonoBehaviour
     public Transform riverTransform;
     [SerializeField]
     private DialogueManager dialogueManager;
-
     #endregion
 
     #region Variables
     public float _speed;
     private int _lookAt = 2;
     public Speed speed;
-    private Vector3 princePosition;
-    private Vector3 riverPosition;
-
     #endregion
 
     #region TAGs
-    private readonly string TAG_ARVORE = "arvore";
-    private readonly string TAG_RIVER = "river";
-    #endregion Variables
+    private string TAG_ARVORE = "arvore";
+    private string TAG_river = "river";
+    private static string COLLIDER_LEARN_FIGHT = "col_dialog_fight";
+    private static string COLLIDER_LEARN_FLY = "col_dialog_fly";
+    private static string COLLIDER_LEARN_FINAL = "col_dialog_final";
+    private static string COLLIDER_LEARN_DEATH = "col_dialog_river";
+
+    #endregion
 
     #region AudioSources
     [SerializeField]
@@ -76,33 +80,39 @@ public class PlayerMotor : MonoBehaviour
     private AudioSource attacking;
     #endregion
 
-    private float spawn;
+    private float spawn1_x;
+    private float spawn1_y;
+    private float spawn2_x;
+    private float spawn2_y;
+
+    private bool limit = true;
 
     void Start()
     {
-        prince = new Prince(true, false, false, false, 0);
-        princePosition = transform.position;
+        prince = new Prince(true, false, false, false, true, 0);
         playerSprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         polygon = GetComponent<PolygonCollider2D>();
         arvoreTransform = GameObject.FindGameObjectWithTag(TAG_ARVORE).transform;
-        riverTransform = GameObject.FindGameObjectWithTag(TAG_RIVER).transform;
-        riverPosition = riverTransform.position;
+        riverTransform = GameObject.FindGameObjectWithTag(TAG_river).transform;    
     }
 
     void Update()
     {
         UpdatePrinceActions();
-        if (!prince.IsDead)
-        {
-            Move();
-        }       
+        Move();
         Attack();
+
     }
 
     void LateUpdate()
     {
+        spawn1_x = riverTransform.position.x;
+        spawn1_x = riverTransform.position.y;
+        spawn2_x = riverTransform.position.x;
+        spawn2_x = riverTransform.position.y;
 
+        Vector3 riverPosition = riverTransform.position;
     }
 
     private void UpdatePrinceActions()
@@ -112,11 +122,7 @@ public class PlayerMotor : MonoBehaviour
             prince.IsMoving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
             prince.IsHuman = !Input.GetKey(KeyCode.LeftShift);
             prince.IsAttacking = Input.GetKey(KeyCode.Z);
-        }
-        else
-        {
-            walk.Stop();
-            flying.Stop();
+            prince.IsTalking = dialogueManager.IsActive;
         }
     }
 
@@ -125,7 +131,9 @@ public class PlayerMotor : MonoBehaviour
         //pega os inputs de horizontal e vertical predefinidos pela unity retornando um valor positivo ou negativo
         float _movX = Input.GetAxisRaw("Horizontal");
         float _movY = Input.GetAxisRaw("Vertical");
-        
+
+        if (prince.IsTalking) { _movX = 0; _movY = 0; }
+
         _speed = prince.IsHuman ? speed.walk : speed.run;
     
         Vector3 velocity = new Vector3(_movX, _movY, 0) * Time.deltaTime * _speed;
@@ -147,8 +155,7 @@ public class PlayerMotor : MonoBehaviour
 
         animator.SetInteger("lookAt", _lookAt);
 
-
-        princePosition += velocity;
+        transform.position += velocity;
 
         PlayMoveSounds(_movX, _movY);
 
@@ -188,35 +195,35 @@ public class PlayerMotor : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("river") && prince.IsHuman)
+        if (col.CompareTag("river"))
         {
             playerSprite.enabled = false;
+            _speed = speed.walk;
             prince.IsDead = true;
-            if (princePosition.x < riverPosition.x)
-            {
-                spawn = princePosition.x - 20;
-            }
-            else 
-            {
-                spawn = princePosition.x + 20;
-            }
         }
 
-        if (!dialogueManager.IsActive)
+        if (!prince.IsTalking)
         {
-            if (col.CompareTag("dialog_fight_box") && !dialogueManager.IsActive)
-            {
-                Debug.Log("PASSEI");
-                dialogueManager.StartDialog(prince.DialogSequence);
-                prince.DialogSequence++;
-            }
-
+            observeDialogTriggers(col, COLLIDER_LEARN_FIGHT);
+            observeDialogTriggers(col, COLLIDER_LEARN_FLY);
+            //observeDialogTriggers(col, COLLIDER_LEARN_FINAL);
+            //observeDialogTriggers(col, COLLIDER_LEARN_DEATH);
 
         }
 
+    }
 
+    private void observeDialogTriggers(Collider2D col, string tagCollider)
+    {
 
+        if (col.CompareTag(tagCollider))
+        {
+            dialogueManager.StartDialog(prince.DialogSequence);
 
+            prince.DialogSequence++;
+            prince.IsTalking = true;
+               
+        }
     }
 
 }

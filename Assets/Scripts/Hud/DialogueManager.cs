@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveDialogBox();
+        //MoveDialogBox();
     }
 
     public void MoveDialogBox()
@@ -28,7 +28,7 @@ public class DialogueManager : MonoBehaviour
 
         Vector3 finalPos = _dialogBox.transform.position;
         finalPos.x = cam.transform.position.x;
-        finalPos.y = cam.transform.position.y - 3.7f;
+        finalPos.y = cam.transform.position.y - 4.3f;
         _dialogBox.transform.position = finalPos;
 
     }

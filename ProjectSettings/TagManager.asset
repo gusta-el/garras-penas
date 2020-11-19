@@ -8,8 +8,11 @@ TagManager:
   - tronco
   - arvore
   - river
-  - dialog_fight
   - dialog_fight_box
+  - col_dialog_fight
+  - col_dialog_fly
+  - col_dialog_final
+  - col_dialog_river
   layers:
   - Default
   - TransparentFX
